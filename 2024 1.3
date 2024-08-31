@@ -1,0 +1,38 @@
+# Define the weight of the package
+weight = 8.4  # You can change this value to test other weights
+# Ground Shipping
+if weight <= 2:
+    cost_ground = 20.00 + (1.50 * weight)
+elif weight <= 6:
+    cost_ground = 20.00 + (3.00 * weight)
+elif weight <= 10:
+    cost_ground = 20.00 + (4.00 * weight)
+else:
+    cost_ground = 20.00 + (4.75 * weight)
+
+# Print the cost of Ground Shipping
+print(f"Ground Shipping cost: ${cost_ground:.2f}")
+# Ground Shipping Premium
+cost_ground_premium = 125.00
+
+# Print the cost of Ground Shipping Premium
+print(f"Ground Shipping Premium cost: ${cost_ground_premium:.2f}")
+# Drone Shipping
+if weight <= 2:
+    cost_drone = 4.50 * weight
+elif weight <= 6:
+    cost_drone = 9.00 * weight
+elif weight <= 10:
+    cost_drone = 12.00 * weight
+else:
+    cost_drone = 14.25 * weight
+
+# Print the cost of Drone Shipping
+print(f"Drone Shipping cost: ${cost_drone:.2f}")
+# Determine the cheapest option
+if cost_ground < cost_ground_premium and cost_ground < cost_drone:
+    print(f"The cheapest option is Ground Shipping. It will cost ${cost_ground:.2f} to ship your package.")
+elif cost_ground_premium < cost_ground and cost_ground_premium < cost_drone:
+    print(f"The cheapest option is Ground Shipping Premium. It will cost ${cost_ground_premium:.2f} to ship your package.")
+else:
+    print(f"The cheapest option is Drone Shipping. It will cost ${cost_drone:.2f} to ship your package.")
