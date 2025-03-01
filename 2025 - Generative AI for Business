@@ -56,3 +56,25 @@ plt.xlabel('Words')
 plt.ylabel('Frequency')
 plt.xticks(rotation=45)
 plt.show()
+
+
+import numpy as np
+
+# Monte Carlo method to estimate Pi
+def compute_pi(num_samples=1000000):
+    inside_circle = 0
+
+    for _ in range(num_samples):
+        x, y = np.random.uniform(-1, 1, 2)  # Generate random points in a square
+        if x**2 + y**2 <= 1:
+            inside_circle += 1  # Count points inside the quarter-circle
+
+    pi_estimate = (inside_circle / num_samples) * 4  # Approximate Pi
+    return pi_estimate
+
+# Compute Pi using 1,000,000 samples
+pi_value = compute_pi(1000000)
+print("Estimated value of Pi:", pi_value)
+
+
+
