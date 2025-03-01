@@ -1,0 +1,58 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from wordcloud import STOPWORDS
+from textblob import TextBlob
+
+# Sample dataset of tweets
+tweets = [
+    "I love this product! It's amazing.",
+    "The service was okay, not great.",
+    "Absolutely terrible experience. Never coming back.",
+    "Decent quality but overpriced.",
+    "Fantastic! Will definitely recommend.",
+    "I hate this so much, waste of money.",
+    "It was an average experience, nothing special.",
+    "Great customer service, very helpful.",
+    "Worst purchase ever, totally disappointed.",
+    "I'm neutral about this, it’s just fine."
+]
+
+# Creating a DataFrame
+df = pd.DataFrame(tweets, columns=['tweet'])
+
+# Function for sentiment analysis
+def get_sentiment(text):
+    score = TextBlob(text).sentiment.polarity
+    if score > 0:
+        return 'Positive'
+    elif score < 0:
+        return 'Negative'
+    else:
+        return 'Neutral'
+
+# Apply sentiment analysis
+df['sentiment'] = df['tweet'].apply(get_sentiment)
+
+# Plot sentiment distribution
+sentiment_counts = df['sentiment'].value_counts()
+
+plt.figure(figsize=(6, 6))
+plt.pie(sentiment_counts, labels=sentiment_counts.index, autopct='%1.1f%%', startangle=140)
+plt.title('Sentiment Distribution of Tweets')
+plt.show()
+
+# Tokenizing words for frequency analysis
+words = ' '.join(df['tweet']).lower().split()
+filtered_words = [word for word in words if word not in STOPWORDS]
+
+# Frequency of top 20 words
+word_freq = pd.Series(filtered_words).value_counts().head(20)
+
+# Plot word frequency
+plt.figure(figsize=(10, 5))
+word_freq.plot(kind='bar')
+plt.title('Top 20 Most Common Words in Tweets')
+plt.xlabel('Words')
+plt.ylabel('Frequency')
+plt.xticks(rotation=45)
+plt.show()
